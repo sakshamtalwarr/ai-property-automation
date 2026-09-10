@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Luxury 3BHK Apartment",
+        "location": "Whitefield, Bangalore",
+        "price": 25000000,
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "area_sqft": 1800,
+        "description": "Spacious luxury apartment in Whitefield."
+    },
+    {
+        "title": "Premium 4BHK Villa",
+        "location": "Sarjapur, Bangalore",
+        "price": 45000000,
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "area_sqft": 3200,
+        "description": "Premium independent villa with modern amenities."
+    },
+    {
+        "title": "Modern 2BHK Apartment",
+        "location": "Electronic City, Bangalore",
+        "price": 12000000,
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "area_sqft": 1200,
+        "description": "Modern apartment suitable for families and professionals."
+    }
+]
