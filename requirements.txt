@@ -1,2 +1,4 @@
-requests
-python-dotenv
+beautifulsoup4==4.15.0
+proot-distro @ file:///home/builder/.termux-build/proot-distro/src
+soupsieve==2.9.2
+typing_extensions==4.16.0
