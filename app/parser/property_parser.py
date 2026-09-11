@@ -33,4 +33,5 @@ def parse_property_data(data):
         "bathrooms": parse_number(data["bathrooms"]),
         "area_sqft": parse_number(data["area_sqft"]),
         "description": data["description"],
+        "images": data.get("images", []),
     }

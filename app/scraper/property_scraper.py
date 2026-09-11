@@ -7,6 +7,15 @@ def scrape_property(file_path):
 
     soup = BeautifulSoup(html, "html.parser")
 
+    images = []
+
+    for image in soup.select(".images img"):
+        src = image.get("src")
+
+        if src:
+            images.append(src)
+
+
     property_data = {
         "title": soup.select_one(".property-title").get_text(strip=True),
         "location": soup.select_one(".location").get_text(strip=True),
@@ -15,6 +24,7 @@ def scrape_property(file_path):
         "bathrooms": soup.select_one(".bathrooms").get_text(strip=True),
         "area_sqft": soup.select_one(".area").get_text(strip=True),
         "description": soup.select_one(".description").get_text(strip=True),
+        "images": images,
     }
 
     return property_data

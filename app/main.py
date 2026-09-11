@@ -1,5 +1,5 @@
 import json
-
+from app.workflow.property_workflow import PropertyWorkflow
 from app.scraper.property_scraper import scrape_property
 from app.parser.property_parser import parse_property_data
 from app.parser.property import Property
@@ -14,9 +14,10 @@ def main():
     clean_data = parse_property_data(raw_data)
 
     property = Property(**clean_data)
+    workflow = PropertyWorkflow(property)
 
     print(f"Processing: {property.title}")
-
+    print("Image status:", workflow.check_images())
     content = generate_property_content(property)
 
     output = {

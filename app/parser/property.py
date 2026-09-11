@@ -7,7 +7,8 @@ class Property:
         bedrooms,
         bathrooms,
         area_sqft,
-        description
+        description,
+        images=None
     ):
         self.title = title
         self.location = location
@@ -16,3 +17,4 @@ class Property:
         self.bathrooms = bathrooms
         self.area_sqft = area_sqft
         self.description = description
+        self.images = images or []
