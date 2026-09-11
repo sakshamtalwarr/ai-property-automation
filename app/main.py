@@ -1,7 +1,9 @@
+import json
+
 from app.scraper.property_scraper import scrape_property
 from app.parser.property_parser import parse_property_data
 from app.parser.property import Property
-from app.ai.service import AIService
+from app.ai.content_generator import generate_property_content
 
 
 def main():
@@ -13,23 +15,23 @@ def main():
 
     property = Property(**clean_data)
 
-    ai = AIService()
+    print(f"Processing: {property.title}")
 
-    prompt = f"""
-Create marketing content for this property:
+    content = generate_property_content(property)
 
-Title: {property.title}
-Location: {property.location}
-Price: ₹{property.price}
-Bedrooms: {property.bedrooms}
-Bathrooms: {property.bathrooms}
-Area: {property.area_sqft} sq ft
-Description: {property.description}
-"""
+    output = {
+        "property": clean_data,
+        "content": content
+    }
 
-    result = ai.generate(prompt)
+    with open(
+        "data/output/ai/generated_content.json",
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(output, file, indent=4, ensure_ascii=False)
 
-    print(result)
+    print("AI content generated successfully.")
 
 
 if __name__ == "__main__":

@@ -27,3 +27,4 @@ build/
 dist/
 coverage/
 .pytest_cache/
+data/output/ai/
