@@ -1,7 +1,7 @@
 from app.scraper.property_scraper import scrape_property
 from app.parser.property_parser import parse_property_data
 from app.parser.property import Property
-from app.parser.serializer import save_property
+from app.ai.service import AIService
 
 
 def main():
@@ -13,17 +13,23 @@ def main():
 
     property = Property(**clean_data)
 
-    print(f"Property: {property.title}")
-    print(f"Price: ₹{property.price}")
-    print(f"Bedrooms: {property.bedrooms}")
-    print(f"Area: {property.area_sqft} sq ft")
+    ai = AIService()
 
-    save_property(
-        property,
-        "data/output/scraped_property.json"
-    )
+    prompt = f"""
+Create marketing content for this property:
 
-    print("Property saved successfully.")
+Title: {property.title}
+Location: {property.location}
+Price: ₹{property.price}
+Bedrooms: {property.bedrooms}
+Bathrooms: {property.bathrooms}
+Area: {property.area_sqft} sq ft
+Description: {property.description}
+"""
+
+    result = ai.generate(prompt)
+
+    print(result)
 
 
 if __name__ == "__main__":
