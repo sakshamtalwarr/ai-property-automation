@@ -4,7 +4,13 @@ class PropertyWorkflow:
         self.property = property
 
     def check_images(self):
-        if hasattr(self.property, "images") and self.property.images:
-            return "images_available"
+        if self.property.images:
+            return {
+                "status": "images_available",
+                "action": "use_existing_images"
+            }
 
-        return "images_missing"
+        return {
+            "status": "images_missing",
+            "action": "generate_images"
+        }

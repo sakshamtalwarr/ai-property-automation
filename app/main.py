@@ -17,7 +17,9 @@ def main():
     workflow = PropertyWorkflow(property)
 
     print(f"Processing: {property.title}")
-    print("Image status:", workflow.check_images())
+    image_check = workflow.check_images()
+    print("Image status:", image_check["status"])
+    print("Next action:", image_check["action"])
     content = generate_property_content(property)
 
     output = {
