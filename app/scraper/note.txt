@@ -1,0 +1,20 @@
+our architecture is:
+config
+      ↓
+DEFAULT_SOURCE = "requests"
+       ↓
+
+scrape_property()
+       ↓
+PropertySource
+       ↓
+    registry
+        ↓
+ ┌───────────────┐
+ │ local HTML    │ → read file
+ │ website URL   │ → requests
+ └───────────────┘
+       ↓
+BeautifulSoup
+       ↓
+structured property data

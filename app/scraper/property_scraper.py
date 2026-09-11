@@ -1,38 +1,31 @@
-import requests
 from bs4 import BeautifulSoup
 
-def fetch_page(url):
-    response = requests.get(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0"
-        },
-        timeout=15
-    )
+from app.config import DEFAULT_SOURCE
+from app.scraper.sources.registry import get_source
 
-    if response.status_code != 200:
-        raise RuntimeError(
-            f"Could not fetch page. HTTP status: {response.status_code}"
-        )
 
-    if "Security Alert" in response.text:
-        raise RuntimeError(
-            "Website returned a security/anti-bot page instead of the property page."
-        )
+def scrape_property(url, source_name=DEFAULT_SOURCE):
+    source = get_source(source_name)
 
-    return response.text
-
-def scrape_property(url):
-    html = fetch_page(url)
+    html = source.fetch(url)
 
     soup = BeautifulSoup(html, "html.parser")
 
+    images = []
+
+    for image in soup.select("img"):
+        src = image.get("src")
+
+        if src:
+            images.append(src)
+
     return {
         "title": soup.title.get_text(strip=True) if soup.title else None,
-        "images": [
-            image.get("src")
-            for image in soup.find_all("img")
-            if image.get("src")
-        ],
-        "html": html
+        "location": soup.select_one(".location").get_text(strip=True),
+        "price": soup.select_one(".price").get_text(strip=True),
+        "bedrooms": soup.select_one(".bedrooms").get_text(strip=True),
+        "bathrooms": soup.select_one(".bathrooms").get_text(strip=True),
+        "area_sqft": soup.select_one(".area").get_text(strip=True),
+        "description": soup.select_one(".description").get_text(strip=True),
+        "images": images,
     }
